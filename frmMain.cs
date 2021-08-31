@@ -15,7 +15,6 @@ namespace MBTranslationTool
         private string windowText;
         private MBCsvLoader loader;
         private MBCsv currentFile;
-        private int lastListViewSelectionIndex;
 
         public frmMain()
         {
@@ -156,7 +155,13 @@ namespace MBTranslationTool
 
         private void btnDeleteLine_Click(object sender, EventArgs e)
         {
-
+            var diaResult = MessageBox.Show("Are you sure you want to delete this line", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            if (diaResult == DialogResult.OK)
+            {
+                int selectedIndex = csvContentList.SelectedIndices[0];
+                currentFile.Lines.RemoveAt(selectedIndex);
+                csvContentList.Items.RemoveAt(selectedIndex);
+            }
         }
 
         private void txtCSVLineValue_KeyDown(object sender, KeyEventArgs e)
